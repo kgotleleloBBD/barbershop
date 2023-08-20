@@ -1,5 +1,4 @@
 // kinesisResponses.ts
-
 import * as apigateway from 'aws-cdk-lib/aws-apigateway';
 
 export const successResponseModel = (api: apigateway.RestApi): apigateway.Model => {
