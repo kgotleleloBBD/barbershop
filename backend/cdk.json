@@ -1,0 +1,9 @@
+{
+  "app": "npx ts-node --prefer-ts-exts lib/barber-shop-app-stack.ts",
+  "context": {
+      "aws-cdk:enableDiffNoFail": "true",
+      "@aws-cdk/core:stackRelativeExports": "true",
+      "@aws-cdk/core:defaultStackAccount": "387198229710",
+      "@aws-cdk/core:defaultStackRegion": "af-south-1"
+  }
+}

@@ -1,0 +1,28 @@
+#.gitignore files
+# Logs
+**/logs
+**/*.log
+**/npm-debug.log*
+
+# Dependency directory
+**/node_modules
+
+# Optional npm cache directory
+**/npm
+**/.npm
+
+# VSCode
+.vscode
+
+# Build directories
+**/docker/dist
+
+#js
+*.js
+!jest.config.js
+*.d.ts
+
+# CDK asset staging directory
+.cdk.staging
+cdk.out
+cdk.context.json

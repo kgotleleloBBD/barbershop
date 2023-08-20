@@ -1,0 +1,38 @@
+{
+    "name": "backend",
+    "version": "1.0.0",
+    "author": "Joaquim Chambuara",
+    "description": "Barber Shop Application",
+    "license": "UNLICENSED",
+    "main": "dist/index.js",
+    "scripts": {
+        "setup": "npm install",
+        "start": "npx-ts node ./src/index.ts",
+        "build": "tsc",
+        "test": "jest",
+        "cdk": "cdk",
+        "lint": "eslint 'src/**/*.{ts,tsx}'"
+    },
+    "devDependencies": {
+        "@types/aws-sdk": "^2.7.0",
+        "@types/node": "^15.12.0",
+        "@typescript-eslint/eslint-plugin": "^4.28.3",
+        "@typescript-eslint/parser": "^4.28.3",
+        "aws-cdk": "^2.92.0",
+        "constructs": "^10.2.69",
+        "esbuild": "^0.12.1",
+        "eslint": "^7.31.0",
+        "jest": "^27.1.5"
+    },
+    "dependencies": {
+        "aws-cdk-lib": "^2.92.0",
+        "aws-sdk": "^2.1438.0",
+        "ts-node": "^10.9.1",
+        "typescript": "^5.1.6"
+    },
+    "jest": {
+        "preset": "ts-jest",
+        "testEnvironment": "node",
+        "aws-sdk": "^2.1437.0"
+    }
+}
