@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-// import { CognitoUser, AuthenticationDetails } from 'amazon-cognito-identity-js';
-// import userpool from '../utils/userpool';
+import { CognitoUser, AuthenticationDetails } from 'amazon-cognito-identity-js';
+import userpool from '../utils/userpool';
+import { useNavigate } from 'react-router-dom';
+
 
 
 
@@ -9,6 +11,8 @@ const Login: React.FC = () => {
   const [password, setPassword] = useState<string>('');
   const [emailError, setEmailError] = useState<string | null>(null);
   const [passwordError, setPasswordError] = useState<string | null>(null);
+  const navigate = useNavigate();
+
 
   const validateEmail = (value: string) => {
     const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
@@ -16,7 +20,6 @@ const Login: React.FC = () => {
   };
 
   const validatePassword = (value: string) => {
-    // This example requires at least 8 characters.
     return value.length >= 8;
   };
 
@@ -43,28 +46,28 @@ const Login: React.FC = () => {
       return;
     }
 
-    // Handle the login logic here.
-    // const user = new CognitoUser({
-    //   Username: email,
-    //   Pool: userpool
-    // })
+    const user = new CognitoUser({
+      Username: email,
+      Pool: userpool
+    })
 
-    // const authDetails = new AuthenticationDetails({
-    //   Username: email,
-    //   Password: password
-    // });
+    const authDetails = new AuthenticationDetails({
+      Username: email,
+      Password: password
+    });
 
-    // user.authenticateUser(authDetails, {
-    //   onSuccess: (data) => {
-    //     console.log(`onSuccess: ${data}`);
-    //   },
-    //   onFailure: (err) => {
-    //     console.error(`onFailure: ${err}`);
-    //   },
-    //   newPasswordRequired: (data) => {
-    //     console.log(`newPasswordRequired: ${data}`);
-    //   }
-    // })
+    user.authenticateUser(authDetails, {
+      onSuccess: (data) => {
+        console.log(`onSuccess: ${data}`);
+        navigate('/home');
+      },
+      onFailure: (err) => {
+        console.error(`onFailure: ${err}`);
+      },
+      newPasswordRequired: (data) => {
+        console.log(`newPasswordRequired: ${data}`);
+      }
+    })
   };
 
   return (

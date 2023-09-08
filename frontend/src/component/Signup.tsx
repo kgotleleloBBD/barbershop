@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import userpool from '../utils/userpool';
+import { useNavigate } from 'react-router-dom';
+
 
 interface SignupData {
   email: string;
@@ -17,6 +19,9 @@ const Signup: React.FC = () => {
     password: '',
   });
 
+  const navigate = useNavigate();
+
+
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
@@ -25,7 +30,6 @@ const Signup: React.FC = () => {
       ...prevData,
       [name]: value,
     }));
-    // Validate the email and password fields as the user types
     validateField(name, value);
   };
 
@@ -68,15 +72,14 @@ const Signup: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Check if there are any validation errors before submitting
     if (Object.values(errors).every((error) => error === '')) {
-      // Here, you can send the email and password to your server for processing
       userpool.signUp(formData.email, formData.password, [], [], (err, data) => {
         if(err) {
           console.log(err)
         }
         else {
           console.log(data)
+          navigate(`/verify/${formData.email}`);
         }
       });
       console.log(formData);
