@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { CognitoUser, AuthenticationDetails } from 'amazon-cognito-identity-js';
 import userpool from '../utils/userpool';
 import { useNavigate } from 'react-router-dom';
-
+import "../component/Login.css"
 
 
 
@@ -92,7 +92,7 @@ const Login: React.FC = () => {
           />
           {passwordError && <div className="error">{passwordError}</div>}
         </div>
-        <button type="submit">Login</button>
+        <button className='loginButton' type="submit">Login</button>
       </form>
     </div>
   );
