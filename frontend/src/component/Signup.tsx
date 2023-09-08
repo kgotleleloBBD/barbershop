@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import userpool from '../utils/userpool';
 import { useNavigate } from 'react-router-dom';
-
+import { Link } from 'react-router-dom';
 
 interface SignupData {
   email: string;
@@ -118,6 +118,9 @@ const Signup: React.FC = () => {
         </div>
         <button type="submit">Sign Up</button>
       </form>
+      <div>
+        <p>Already have an account? <Link to="/login">Login</Link></p>
+      </div>
     </div>
   );
 };

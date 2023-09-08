@@ -59,7 +59,7 @@ const Login: React.FC = () => {
     user.authenticateUser(authDetails, {
       onSuccess: (data) => {
         console.log(`onSuccess: ${data}`);
-        navigate('/home');
+        navigate('/');
       },
       onFailure: (err) => {
         console.error(`onFailure: ${err}`);
