@@ -79,8 +79,12 @@ export class BarberShopAppStack extends Stack {
     table.grantWriteData(updateAppointmentFunction);
     table.grantWriteData(deleteAppointmentFunction);
 
+    appointmentsStream.grantReadWrite(createAppointmentFunction);
+    appointmentsStream.grantReadWrite(getAppointmentsFunction);
+    appointmentsStream.grantReadWrite(updateAppointmentFunction);
+    appointmentsStream.grantReadWrite(deleteAppointmentFunction);
+
     
-    //const api = new apigateway.RestApi(this, 'ApiGateway');
     const api = new apigateway.RestApi(this, 'MyApi', {
       restApiName: 'My API'
     });

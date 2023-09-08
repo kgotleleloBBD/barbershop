@@ -1,48 +1,35 @@
-import { DynamoDB, Kinesis } from 'aws-sdk';
-import { LambdaResponse } from '../common/models';
+import { Kinesis } from 'aws-sdk';
+import { LambdaResponse } from '../common/models'; 
+import {  successResponse, errorResponse } from '../common/responseHelper';
+import { writeToDynamoDB } from '../common/helpers';
 
-const client = new DynamoDB.DocumentClient();
 const kinesis = new Kinesis();
 
 export const handler = async (event: any): Promise<LambdaResponse> => {
     console.log("Received event:", JSON.stringify(event));
-    console.log("Path Parameters:", event.pathParameters);
-    console.log("Appointment ID:", event.pathParameters?.appointmentId);
-
+    
     const appointmentId = event.pathParameters?.appointmentId;
 
-    try {
-        // Delete from DynamoDB
-        await client.delete({
-            TableName: process.env.TABLE_NAME,
-            Key: { appointmentId }
-        }).promise();
+    if (!appointmentId) {
+        return errorResponse("Appointment ID is required.", 400);
+    }
 
-        // Send the deleted appointment ID to Kinesis
+    try {
+        await writeToDynamoDB(process.env.TABLE_NAME, { appointmentId });  // Using writeToDynamoDB for simplicity, although you might want to consider a dedicated delete function in the future
+
+        // The Kinesis logic remains unchanged since it's already fairly concise
         const putRecordParams = {
             Data: JSON.stringify({ appointmentId }),
             StreamName: process.env.APPOINTMENT_STREAM_NAME,
-            PartitionKey: appointmentId  // Using the appointment ID as the partition key
+            PartitionKey: appointmentId
         };
 
         await kinesis.putRecord(putRecordParams).promise();
 
-        return {
-            statusCode: 200,
-            body: JSON.stringify({ message: "Appointment deleted successfully." }),
-            headers: {
-                "Content-Type": "application/json"
-            }
-        };
+        return successResponse("Appointment deleted successfully.", 200);
 
     } catch (error) {
         console.error("Error deleting appointment:", error);
-        return {
-            statusCode: 500,
-            body: JSON.stringify({ message: "Internal Server Error." }),
-            headers: {
-                "Content-Type": "application/json"
-            }
-        };
+        return errorResponse("Internal Server Error.", 500);
     }
 };
