@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import userpool from '../utils/userpool';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import './Signup.css';
 
 interface SignupData {
   email: string;

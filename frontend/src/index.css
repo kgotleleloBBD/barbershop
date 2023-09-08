@@ -5,6 +5,12 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  background: hsla(0, 0%, 0%, 1);
+  background: linear-gradient(180deg, hsla(0, 0%, 0%, 1) 0%, hsla(30, 15%, 64%, 1) 100%);
+  background: -moz-linear-gradient(180deg, hsla(0, 0%, 0%, 1) 0%, hsla(30, 15%, 64%, 1) 100%);
+  background: -webkit-linear-gradient(180deg, hsla(0, 0%, 0%, 1) 0%, hsla(30, 15%, 64%, 1) 100%);
+  filter: progid: DXImageTransform.Microsoft.gradient(startColorstr="#000000", endColorstr="#b2a496", GradientType=1);
 }
 
 code {

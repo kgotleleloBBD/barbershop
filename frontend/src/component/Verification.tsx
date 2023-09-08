@@ -6,6 +6,7 @@ import {
   ICognitoUserData,
 } from "amazon-cognito-identity-js";
 import { useNavigate } from 'react-router-dom';
+import './Verification.css';
 
 const Verification: React.FC = () => {
   const { username } = useParams<{ username: string }>();
