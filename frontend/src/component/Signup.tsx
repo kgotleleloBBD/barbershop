@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import userpool from '../utils/userpool';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import './Signup.css';
 
 interface SignupData {
   email: string;
@@ -21,10 +22,7 @@ const Signup: React.FC = () => {
 
   const navigate = useNavigate();
 
-
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
       ...prevData,
@@ -74,11 +72,10 @@ const Signup: React.FC = () => {
     e.preventDefault();
     if (Object.values(errors).every((error) => error === '')) {
       userpool.signUp(formData.email, formData.password, [], [], (err, data) => {
-        if(err) {
-          console.log(err)
-        }
-        else {
-          console.log(data)
+        if (err) {
+          console.log(err);
+        } else {
+          console.log(data);
           navigate(`/verify/${formData.email}`);
         }
       });
@@ -89,9 +86,9 @@ const Signup: React.FC = () => {
   };
 
   return (
-    <div>
+    <div className="center-container">
       <h2>Signup</h2>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="center-form">
         <div>
           <label htmlFor="email">Email:</label>
           <input
@@ -118,8 +115,10 @@ const Signup: React.FC = () => {
         </div>
         <button type="submit">Sign Up</button>
       </form>
-      <div>
-        <p>Already have an account? <Link to="/login">Login</Link></p>
+      <div className="center-text">
+        <p>
+          Already have an account? <Link to="/login">Login</Link>
+        </p>
       </div>
     </div>
   );

@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { v4 as uuidv4 } from 'uuid'; // Import uuidv4
+import './bookApointment.css';
+import { useNavigate } from 'react-router-dom';
+
 
 interface FormData {
   fullName: string;
@@ -19,18 +23,20 @@ const initialFormData: FormData = {
 
 function Book() {
   const [formData, setFormData] = useState<FormData>(initialFormData);
+  const navigate = useNavigate()
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-  
+    const appointmentId: string = uuidv4();
+
     const postData = {
-      appointmentId: "A12345",
+      appointmentId,
       appointment: {
         clientName: formData.fullName,
         appointmentTime: `${formData.appointmentDate}T${formData.appointmentTime}:00Z`,
@@ -43,14 +49,16 @@ function Book() {
       }
     };
 
-    axios.post('YOUR_SERVER_ENDPOINT', postData)
-      .then((response) => {
-        alert("Appointment booked successfully!");
-        setFormData(initialFormData); 
-      })
-      .catch((error) => {
-        alert("Error booking appointment. Please try again.");
-      });
+    try {
+      const response = await axios.post('https://2ajcrf8zxc.execute-api.af-south-1.amazonaws.com/prod/appointment', postData);
+      console.log(response.data);
+
+      navigate(`/viewbooking/${appointmentId}`);
+      setFormData(initialFormData);
+    } catch (error) {
+      navigate(`/viewbooking/${appointmentId}`); 
+      console.log(error)
+    }
   };
 
   return (

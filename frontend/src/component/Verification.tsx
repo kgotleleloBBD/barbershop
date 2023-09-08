@@ -6,6 +6,7 @@ import {
   ICognitoUserData,
 } from "amazon-cognito-identity-js";
 import { useNavigate } from 'react-router-dom';
+import './Verification.css';
 
 const Verification: React.FC = () => {
   const { username } = useParams<{ username: string }>();
@@ -51,7 +52,7 @@ const Verification: React.FC = () => {
   };
 
   return (
-    <div>
+    <div className="center-container"> {/* Apply centering to the container */}
       <h2>Verification</h2>
       <p>Enter the verification code sent to your email:</p>
       <input

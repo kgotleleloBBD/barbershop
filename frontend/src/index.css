@@ -5,6 +5,10 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  background: linear-gradient(180deg, hsla(186, 100%, 69%, 1) 0%, hsla(30, 15%, 64%, 1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#60EFFF', endColorstr='#b2a496', GradientType=1);
+
 }
 
 code {

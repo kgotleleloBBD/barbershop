@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import { CognitoUser, AuthenticationDetails } from 'amazon-cognito-identity-js';
 import userpool from '../utils/userpool';
 import { useNavigate } from 'react-router-dom';
-import "../component/Login.css"
-
+import './Login.css';
 
 
 const Login: React.FC = () => {
@@ -59,7 +58,7 @@ const Login: React.FC = () => {
     user.authenticateUser(authDetails, {
       onSuccess: (data) => {
         console.log(`onSuccess: ${data}`);
-        navigate('/');
+        navigate('/booking');
       },
       onFailure: (err) => {
         console.error(`onFailure: ${err}`);
@@ -71,9 +70,9 @@ const Login: React.FC = () => {
   };
 
   return (
-    <div>
+    <div className="center-container">
       <h2>Login</h2>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="center-form">
         <div>
           <label>Email:</label>
           <input

@@ -1,23 +1,26 @@
 import React, { useEffect, useState } from 'react';
-import "../viewBooking/viewBooking.css"
+import './viewBooking.css';
 import axios from 'axios';
+import { useParams } from 'react-router-dom';
+
 
 const Appointment: React.FC = () => {
+  const { appointmentId } = useParams<{ appointmentId: string }>();
+
   const [appointmentData, setAppointmentData] = useState<any>(null);
 
   useEffect(() => {
-    
-
     async function fetchData() {
       try {
-        const response = await axios.get('https://2ajcrf8zxc.execute-api.af-south-1.amazonaws.com/prod/A12348');
+        const response = await axios.get(`https://2ajcrf8zxc.execute-api.af-south-1.amazonaws.com/prod/${appointmentId}`);
         setAppointmentData(response.data);
+        console.log(response.data);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     }
     fetchData();
-  }, []);
+  }, [appointmentId]);
 
   return (
     <div>
@@ -60,5 +63,6 @@ const Appointment: React.FC = () => {
     </div>
   );
 };
+
 
 export default Appointment ;
